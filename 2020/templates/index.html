@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Home</title>
+	</head>
+	<body>
+		<select name="zones" id="zone1">
+			<option value="">--Select a time zone--</option>
+			<option value="-5">EST</option>
+			<option value="0">UTC</option>
+			<option value="8">CST</option>
+		</select>
+		<select name="zones2" id="zone2">
+			<option value="">--Select a time zone--</option>
+			<option value="-5">EST</option>
+			<option value="0">UTC</option>
+			<option value="8">CST</option>
+		</select>
+		<br></br>
+		<button type="button" onclick="getSelected()">Submit</button>
+		<script type="text/javascript">
+			console.log("Hello World");
+			function getSelected() {
+				var sel1 = document.getElementById("zone1");
+				var sel2 = document.getElementById("zone2");
+				console.log(sel1.value);
+				console.log(sel2.value);
+			}
+		</script>
+	</body>
+</html>
