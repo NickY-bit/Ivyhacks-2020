@@ -36,8 +36,6 @@
 				var lch = ti.getHours();
 				var utch = ti.getUTCHours();
 				var lcl = -1 *(utch - lch);
-				console.log(lcl);
-				//check when both timezones are greater than 8 but less than 21
 				if (sel1.value == "local") {
 					var z1h = 0 + parseInt(lcl);
 				} else {
@@ -48,6 +46,8 @@
 				} else {
 					var z2h = 0 + parseInt(sel2.value);
 				}
+				console.log(z1h);
+				console.log(z2h);
 				var accpTm1 = [];
 				var accpTm2 = [];
 				for (let x = 0; x < 24; x++) {
@@ -56,13 +56,15 @@
 					if (z1h > 23) {
 						z1h = 0;
 					} else if (z1h < 0) {
-						z1h = 24 - z1h;
+						z1h = 24 - Math.abs(z1h);
 					}
 					if (z2h > 23) {
 						z2h = 0;
 					} else if (z1h < 0) {
-						z1h = 24-z1h;
+						z2h = 24 - Math.abs(z2h);
 					}
+					console.log("z1h " + z1h);
+					console.log("z2h " + z2h);
 					if (7 < z1h && z1h < 23 && 7 < z2h && z2h < 23) {
 						accpTm1.push(z1h);
 						accpTm2.push(z2h);
@@ -70,6 +72,8 @@
 				}
 				var short1 = cmbnCnsctv(accpTm1);
 				var short2 = cmbnCnsctv(accpTm2);
+				console.log(accpTm1);
+				console.log(accpTm2);
 
 				document.getElementById("display1").innerHTML = "<p>Times in Zone 1 : " + short1[0] + ":00-" + short1[1] + ":00</p><p>Times in Zone 2 : " + short2[0] + ":00-" + short2[1] + ":00</p>";
 			}
@@ -83,7 +87,7 @@
 					}
 				}
 				out.push(array[0]);
-				out.push(array[end])
+				out.push(array[end]);
 				return out;
 			}
 		</script>
