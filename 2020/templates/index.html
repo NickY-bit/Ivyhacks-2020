@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="stylesheet" href="styles.css" type="text/css">
 		<title>Home</title>
 	</head>
 	<body>
+		<p>Timezone 1 </p>
+		<p>Timezone 2</p>
 		<select name="zones" id="zone1">
 			<option value="">--Select a time zone--</option>
 			<option value="-5">EST</option>
@@ -21,8 +24,8 @@
 		<br></br>
 		<button type="button" onclick="getSelected()">Submit</button>
 		<p>UTC: <span id="UniversalDatetime"></span></p>
-		<p>Time in your zone: <span id="localDatetime"></span></p>
-		<p>Possible times: <span id="display1"></span></p>
+		<p>Time in Your Zone: <span id="localDatetime"></span></p>
+		<p>Potential Time Slots: <span id="display1"></span></p>
 		<script type="text/javascript">
 			console.log("Hello World");
 			function getSelected() {
@@ -53,12 +56,12 @@
 					if (z2h > 23) {
 						z2h = 0;
 					}
-					if (7 < z1h && z1h < 22 && 7 < z2h && z2h < 22) {
+					if (6 < z1h && z1h < 23 && 7 < z2h && z2h < 23) {
 						accpTm1.push(z1h);
 						accpTm2.push(z2h);
 					}
 				}
-				document.getElementById("display1").innerHTML = "<p>Times in zone 1 : " + accpTm1 + "</p><p>Times in zone 2 : " + accpTm2 +"</p>";
+				document.getElementById("display1").innerHTML = "<p>Times in Zone 1 : " + accpTm1 + "</p><p>Times in Zone 2 : " + accpTm2 +"</p>";
 			}
 		</script>
 	</body>
