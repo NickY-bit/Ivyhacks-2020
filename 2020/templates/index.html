@@ -9,15 +9,18 @@
 			<option value="-5">EST</option>
 			<option value="0">UTC</option>
 			<option value="8">CST</option>
+			<option value="2">CEST</option>
 		</select>
 		<select name="zones2" id="zone2">
 			<option value="">--Select a time zone--</option>
 			<option value="-5">EST</option>
 			<option value="0">UTC</option>
 			<option value="8">CST</option>
+			<option value="2">CEST</option>
 		</select>
 		<br></br>
 		<button type="button" onclick="getSelected()">Submit</button>
+		<p>Time in zone 1: <span id="datetime"></span></p>
 		<script type="text/javascript">
 			console.log("Hello World");
 			function getSelected() {
@@ -25,6 +28,8 @@
 				var sel2 = document.getElementById("zone2");
 				console.log(sel1.value);
 				console.log(sel2.value);
+				var dt = new Date();
+				document.getElementById("datetime").innerHTML = dt.toLocaleTimeString();
 			}
 		</script>
 	</body>
