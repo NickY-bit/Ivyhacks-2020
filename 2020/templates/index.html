@@ -5,21 +5,25 @@
 		<title>Home</title>
 	</head>
 	<body>
-		<p>Timezone 1 </p>
-		<p>Timezone 2</p>
+		<p>Time zone 1 </p>
+		<p>Time zone 2</p>
 		<select name="zones" id="zone1">
 			<option value="">--Select a time zone--</option>
 			<option value="-5">EST/UTC-5</option>
+			<option value="-8">PST/UTC-8</option>
 			<option value="0">UTC</option>
 			<option value="8">CST/UTC+8</option>
 			<option value="2">CEST/UTC+2</option>
+			<option value="local">Local Time zone</option>
 		</select>
 		<select name="zones2" id="zone2">
 			<option value="">--Select a time zone--</option>
 			<option value="-5">EST/UTC-5</option>
+			<option value="-8">PST/UTC-8</option>
 			<option value="0">UTC</option>
 			<option value="8">CST/UTC+8</option>
 			<option value="2">CEST/UTC+2</option>
+			<option value="local">Local Time zone</option>
 		</select>
 		<br></br>
 		<button type="button" onclick="getSelected()">Submit</button>
@@ -29,10 +33,21 @@
 				var sel1 = document.getElementById("zone1");
 				var sel2 = document.getElementById("zone2");
 				var ti = new Date();
+				var lch = ti.getHours();
 				var utch = ti.getUTCHours();
+				var lcl = -1 *(utch - lch);
+				console.log(lcl);
 				//check when both timezones are greater than 8 but less than 21
-				var z1h = 0 + parseInt(sel1.value);
-				var z2h = 0 + parseInt(sel2.value);
+				if (sel1.value == "local") {
+					var z1h = 0 + parseInt(lcl);
+				} else {
+					var z1h = 0 + parseInt(sel1.value);
+				}
+				if (sel2.value == "local") {
+					var z2h = 0 + parseInt(lcl);
+				} else {
+					var z2h = 0 + parseInt(sel2.value);
+				}
 				var accpTm1 = [];
 				var accpTm2 = [];
 				for (let x = 0; x < 24; x++) {
