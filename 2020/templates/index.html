@@ -9,42 +9,30 @@
 		<p>Timezone 2</p>
 		<select name="zones" id="zone1">
 			<option value="">--Select a time zone--</option>
-			<option value="-5">EST</option>
+			<option value="-5">EST/UTC-5</option>
 			<option value="0">UTC</option>
-			<option value="8">CST</option>
-			<option value="2">CEST</option>
+			<option value="8">CST/UTC+8</option>
+			<option value="2">CEST/UTC+2</option>
 		</select>
 		<select name="zones2" id="zone2">
 			<option value="">--Select a time zone--</option>
-			<option value="-5">EST</option>
+			<option value="-5">EST/UTC-5</option>
 			<option value="0">UTC</option>
-			<option value="8">CST</option>
-			<option value="2">CEST</option>
+			<option value="8">CST/UTC+8</option>
+			<option value="2">CEST/UTC+2</option>
 		</select>
 		<br></br>
 		<button type="button" onclick="getSelected()">Submit</button>
-		<p>UTC: <span id="UniversalDatetime"></span></p>
-		<p>Time in Your Zone: <span id="localDatetime"></span></p>
 		<p>Potential Time Slots: <span id="display1"></span></p>
 		<script type="text/javascript">
-			console.log("Hello World");
 			function getSelected() {
 				var sel1 = document.getElementById("zone1");
 				var sel2 = document.getElementById("zone2");
-				console.log(sel1.value);
-				console.log(sel2.value);
 				var ti = new Date();
-				var lch = ti.getHours();
-				var lcm = ti.getMinutes();
-				var lcs = ti.getSeconds();
-				document.getElementById("localDatetime").innerHTML = lch + ":" + lcm + ":" + lcs;
 				var utch = ti.getUTCHours();
-				var utcm = ti.getUTCMinutes();
-				var utcs = ti.getUTCSeconds();
-				document.getElementById("UniversalDatetime").innerHTML = utch + ":" + utcm + ":" + utcs;
 				//check when both timezones are greater than 8 but less than 21
-				var z1h = 12 + parseInt(sel1.value);
-				var z2h = 12 + parseInt(sel2.value);
+				var z1h = 0 + parseInt(sel1.value);
+				var z2h = 0 + parseInt(sel2.value);
 				var accpTm1 = [];
 				var accpTm2 = [];
 				for (let x = 0; x < 24; x++) {
@@ -52,16 +40,36 @@
 					z2h++;
 					if (z1h > 23) {
 						z1h = 0;
+					} else if (z1h < 0) {
+						z1h = 24 - z1h;
 					}
 					if (z2h > 23) {
 						z2h = 0;
+					} else if (z1h < 0) {
+						z1h = 24-z1h;
 					}
-					if (6 < z1h && z1h < 23 && 7 < z2h && z2h < 23) {
+					if (7 < z1h && z1h < 23 && 7 < z2h && z2h < 23) {
 						accpTm1.push(z1h);
 						accpTm2.push(z2h);
 					}
 				}
-				document.getElementById("display1").innerHTML = "<p>Times in Zone 1 : " + accpTm1 + "</p><p>Times in Zone 2 : " + accpTm2 +"</p>";
+				var short1 = cmbnCnsctv(accpTm1);
+				var short2 = cmbnCnsctv(accpTm2);
+
+				document.getElementById("display1").innerHTML = "<p>Times in Zone 1 : " + short1[0] + ":00-" + short1[1] + ":00</p><p>Times in Zone 2 : " + short2[0] + ":00-" + short2[1] + ":00</p>";
+			}
+			function cmbnCnsctv(array) {
+				let out = [];
+				var end = 0;
+				for (let i = 0; i < array.length; i++) {
+					let diff = array[i + 1] - array[i]
+					if (Math.abs(diff) == 1) {
+						end++;
+					}
+				}
+				out.push(array[0]);
+				out.push(array[end])
+				return out;
 			}
 		</script>
 	</body>
