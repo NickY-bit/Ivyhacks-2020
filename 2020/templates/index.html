@@ -25,7 +25,12 @@
 			<option value="2">CEST/UTC+2</option>
 			<option value="local">Local Time zone</option>
 		</select>
-		<br></br>
+		<p>Earliest time:</p>
+		<input type="number" max=23 min=0 step=1 id="minTime" value=8></input>
+		<p>Latest time:</p>
+		<input type="number" max=23 min=0 step=1 id="maxTime" value=22></input>
+		<br>
+		<br>
 		<button type="button" onclick="getSelected()">Submit</button>
 		<p>Potential Time Slots: <span id="display1"></span></p>
 		<script type="text/javascript">
@@ -50,6 +55,11 @@
 				console.log(z2h);
 				var accpTm1 = [];
 				var accpTm2 = [];
+				var minTi = document.getElementById("minTime");
+				var maxTi = document.getElementById("maxTime");
+				if (minTi.value > maxTi.value) {
+					minTi.value == maxTi.value;
+				}
 				for (let x = 0; x < 24; x++) {
 					z1h++;
 					z2h++;
@@ -63,24 +73,38 @@
 					} else if (z1h < 0) {
 						z2h = 24 - Math.abs(z2h);
 					}
-					console.log("z1h " + z1h);
-					console.log("z2h " + z2h);
-					if (7 < z1h && z1h < 23 && 7 < z2h && z2h < 23) {
-						accpTm1.push(z1h);
-						accpTm2.push(z2h);
+					console.log(minTi.value);
+					console.log(maxTi.value);
+					if (minTi.value != null && maxTi.value != null) {
+						if (minTi.value <= z1h && z1h <= maxTi.value && minTi.value <= z2h && z2h <= maxTi.value) {
+							accpTm1.push(z1h);
+							accpTm2.push(z2h);
+						}
+					} else {
+						if (7 <= z1h && z1h <= 23 && 7 <= z2h && z2h <= 23) {
+							accpTm1.push(z1h);
+							accpTm2.push(z2h);
+						}
 					}
 				}
 				var short1 = cmbnCnsctv(accpTm1);
 				var short2 = cmbnCnsctv(accpTm2);
-				console.log(accpTm1);
-				console.log(accpTm2);
+				console.log(short1);
+				console.log(short2);
 
-				document.getElementById("display1").innerHTML = "<p>Times in Zone 1 : " + short1[0] + ":00-" + short1[1] + ":00</p><p>Times in Zone 2 : " + short2[0] + ":00-" + short2[1] + ":00</p>";
+				if (short1 != null && short2 != null && short1 != undefined && short2 != undefined && short1.length != 0 && short2.length != 0) {
+					document.getElementById("display1").innerHTML = "<p>Times in Zone 1 : " + short1[0] + ":00-" + short1[1] + ":00</p><p>Times in Zone 2 : " + short2[0] + ":00-" + short2[1] + ":00</p>";
+				} else {
+					document.getElementById("display1").innerHTML = "<p>No times found</p>"
+				}
 				/*if (short1.length > 2 && short2.length > 2) {
 					document.getElementById("display1").innerHTML = "<p>Times in Zone 1 : " + short1[0] + ":00-" + short1[1] + ":00, " + short1[2] + ":00-" + short1[3] + ":00</p><p>Times in Zone 2 : " + short2[0] + ":00-" + short2[1] + ":00, " + short2[2] + ":00-" + short2[3] + ":00</p>";
 				}*/
 			}
 			function cmbnCnsctv(array) {
+				if (array == undefined || array.length == 0) {
+					return null;
+				}
 				let out = [];
 				var end = 0;
 				for (let i = 0; i < array.length; i++) {
