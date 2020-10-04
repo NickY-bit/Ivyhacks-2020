@@ -89,6 +89,8 @@
 				}
 				var short1 = cmbnCnsctv(accpTm1);
 				var short2 = cmbnCnsctv(accpTm2);
+				console.log(accpTm1);
+				console.log(accpTm2);
 				console.log(short1);
 				console.log(short2);
 
@@ -97,9 +99,9 @@
 				} else {
 					document.getElementById("display1").innerHTML = "<p>No times found</p>"
 				}
-				/*if (short1.length > 2 && short2.length > 2) {
+				if (short1 != null && short1.length > 2 && short2.length > 2) {
 					document.getElementById("display1").innerHTML = "<p>Times in Zone 1 : " + short1[0] + ":00-" + short1[1] + ":00, " + short1[2] + ":00-" + short1[3] + ":00</p><p>Times in Zone 2 : " + short2[0] + ":00-" + short2[1] + ":00, " + short2[2] + ":00-" + short2[3] + ":00</p>";
-				}*/
+				}
 			}
 			function cmbnCnsctv(array) {
 				if (array == undefined || array.length == 0) {
@@ -117,19 +119,20 @@
 				}
 				out.push(array[0]);
 				out.push(array[end]);
-				if (end < array.length) {
-					var end2 = end;
-					for (let i = end; i < array.length; i++) {
+				if (end < array.length - 1) {
+					var end2 = end + 1;
+					for (let i = end; i < array.length - 1; i++) {
 						let diff = array[i + 1] - array[i]
+						console.log("i=" + i);
 						if (diff == 1) {
 							end2++;
 						} else {
 							break;
 						}
 					}
-				}
 				out.push(array[end + 1]);
 				out.push(array[end2]);
+				}
 				return out;
 			}
 		</script>
